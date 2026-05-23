@@ -3,12 +3,15 @@ import authRoutes from "./routes/authRoutes";
 import chatRoutes from "./routes/chatRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import userRoutes from "./routes/userRoutes";
+import errorHandler from "./middleware/errorHandler";
+import { clerkMiddleware } from "@clerk/express";
 
 const app: Express = express();
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(clerkMiddleware());
 
 // test
 app.get("/", (req, res) => {
@@ -17,9 +20,12 @@ app.get("/", (req, res) => {
 
 // Routes
 
-app.use("api/auth", authRoutes);
-app.use("api/chat", chatRoutes);
-app.use("api/messages", messageRoutes);
-app.use('api/users', userRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
+
+// Error Handler (Must be registered last)
+app.use(errorHandler);
 
 export default app;
