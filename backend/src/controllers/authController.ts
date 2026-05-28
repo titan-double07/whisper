@@ -13,7 +13,7 @@ export const authCallback = async (
     const { userId: clerkId } = getAuth(req);
 
     if (!clerkId) {
-      return res
+       return res
         .status(401)
         .json({ message: "Unauthorized: No Clerk ID found" });
     }
