@@ -10,6 +10,7 @@ type GetOrCreateChatRequest = AuthRequest & {
   };
 };
 
+
 export const getChats = async (
   req: AuthRequest,
   res: Response,
